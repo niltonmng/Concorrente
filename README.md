@@ -1,33 +1,5 @@
 # Programação Concorrente
 
-Sumário
-=================================
-[O que é programação concorrente ?](https://github.com/avdLuna/ConcurrentProgramming#o-que-%C3%A9-programa%C3%A7%C3%A3o-concorrente-)
-
-[Threads](https://github.com/avdLuna/ConcurrentProgramming#threads)
-
-* [Definição](https://github.com/avdLuna/ConcurrentProgramming#defini%C3%A7%C3%A3o)
-* [Problemas que podemos ter](https://github.com/avdLuna/ConcurrencyProgramming#problemas-que-podemos-ter)
-* [Estados de uma thread](https://github.com/avdLuna/ConcurrentProgramming#estados-de-uma-thread)
-
-[Introdução a Threads em Java](https://github.com/avdLuna/ConcurrentProgramming#introdu%C3%A7%C3%A3o-a-threads-em-java)
-
-* [Começando a trabalhar com threads (Java)](https://github.com/avdLuna/ConcurrentProgramming#come%C3%A7ando-a-trabalhar-com-threads-java)
-* [Métodos para trabalhar com threads (Java)](https://github.com/avdLuna/ConcurrentProgramming#m%C3%A9todos-para-trabalhar-com-threads-java)
-* [Trabalhando com múltiplas threads (Java)](https://github.com/avdLuna/ConcurrentProgramming#trabalhando-com-m%C3%BAltiplas-threads-java)
-
-[Introdução a threads em C](https://github.com/avdLuna/ConcurrentProgramming#introdu%C3%A7%C3%A3o-a-threads-em-c)
-
-* [Começando a trabalhar com threads (C)](https://github.com/avdLuna/ConcurrentProgramming#come%C3%A7ando-a-trabalhar-com-threads-c)
-* [Métodos para trabalhar com threads (C)](https://github.com/avdLuna/ConcurrentProgramming#m%C3%A9todos-para-trabalhar-com-threads-c)
-* [Trabalhando com múltiplas threads (C)](https://github.com/avdLuna/ConcurrentProgramming#trabalhando-com-m%C3%BAltiplas-threads-c)
-
-[Exclusão Mútua](https://github.com/avdLuna/ConcurrentProgramming#exclus%C3%A3o-m%C3%BAtua)
-
-* [Produtor/Consumidor](https://github.com/avdLuna/ConcurrentProgramming#produtorconsumidor)
-    * [Produtor/Consumidor (Java)](https://github.com/avdLuna/ConcurrentProgramming#produtorconsumidor-java)
-    * [Produtor/Consumidor (C)](https://github.com/avdLuna/ConcurrentProgramming#produtorconsumidor-c)
-
 O que é programação concorrente ?
 =================================
 
@@ -950,8 +922,6 @@ O output deste programa foi:
     Produtor terminando
     Consumidor retirou 9
     Consumidor terminando
-
-As referências para esta apostila podem ser encontradas no arquivo [references.bib](https://github.com/avdLuna/ConcurrencyProgramming/blob/master/references.bib)
 
 
 ## Goroutines
