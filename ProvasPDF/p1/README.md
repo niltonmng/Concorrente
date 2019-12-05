@@ -2,7 +2,7 @@
 ## 1
 
 ## 2
-```
+```C
 void *request (void *args) {
     int random_number = (rand() % 100) + 1; // // Obtain a number between [1 - 100].
     sleep(random_number); // Sleeps seconds
