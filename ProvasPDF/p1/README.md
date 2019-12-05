@@ -1,6 +1,45 @@
 # Respostas
 ## 1
 
+```Java
+public class BlockingQueue {
+
+    private List queue = new LinkedList();
+    private int limit = 10;
+    private int n_elem = 0;
+ 
+    public BlockingQueue(int limit) {
+        this.limit = limit;
+    }  
+    
+    public synchronized void put(Object E) throws InterruptedException {
+        while (this.queue.size() == this.limit) {
+            wait();
+        }
+        if (this.queue.size() == 0) {
+            notifyAll();
+        }
+        this.queue.add(E);
+        this.n_elem += 1;
+    }
+
+    public synchronized Object take() throws InterruptedException {
+        while (this.queue.size() == 0) {
+            wait();
+        }
+        if (this.queue.size() == this.limit) {
+            notifyAll();
+        }
+        this.n_elem -= 1
+        return this.queue.remove(0);
+    }
+
+    public int remainingCapacity(){
+	    return this.limit - this.n_elem;
+    }
+}
+```
+
 ## 2
 ```C
 void *request (void *args) {
@@ -28,7 +67,6 @@ int gateway (int nthreads, int wait_nthreads) {
 ```
 
 ## 3
-
 ```C
 // DUVIDA
 // basic node structure  
