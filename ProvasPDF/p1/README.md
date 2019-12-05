@@ -30,7 +30,7 @@ int gateway (int nthreads, int wait_nthreads) {
 ## 3
 
 ```C
-// RESOLVER ENVOLVENDO OS MUTEX NOS LUGARES CORRETOS
+// DUVIDA
 // basic node structure  
 typedef struct __node_t {  
     int key;  
@@ -43,30 +43,35 @@ typedef struct __list_t {
 } list_t;
 
 void List_Init(list_t *L) {
-      L->head = NULL
+    pthread_mutex_lock(&L->lock); // <- correção de problema
+    L->head = NULL
+    pthread_mutex_unlock(&L->lock); // <- correção de problema
 }
 
 int List_Insert(list_t *L, int key) {
-      node_t* new = malloc(sizeof(node_t));
-      if (new == NULL) {
-          perror("malloc");
-          return -1; // fail
+    pthread_mutex_lock(&L->lock); // <- correção de problema
+    node_t* new = malloc(sizeof(node_t));
+    if (new == NULL) {
+        perror("malloc");
+        return -1; // fail
       }
-      new->key = key;
-      new->next = L->head;
-      L->head = new;
-      return 0; // success
+    new->key = key;
+    new->next = L->head;
+    L->head = new;
+    pthread_mutex_unlock(&L->lock); // <- correção de problema
+    return 0; // success
 }
 
 int List_Lookup(list_t*L, int key) {
-    pthread_mutex_lock(&L->lock);
+    pthread_mutex_lock(&L->lock); // <- correção de problema
     node_t*curr = L->head;
     while (curr) {
         if (curr->key == key){
             return 0; // success
         }
         curr =curr->next;
-    } 
+    }
+    pthread_mutex_unlock(&L->lock); // <- correção de problema
     return -1; // failure
 } 
 ```
