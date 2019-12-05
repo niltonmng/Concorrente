@@ -43,7 +43,7 @@ public class BlockingQueue {
 ## 2
 ```C
 void *request (void *args) {
-    int random_number = (rand() % 100) + 1; // // Obtain a number between [1 - 100].
+    int random_number = (rand() % 100) + 1; // Obtain a number between [1 - 100].
     sleep(random_number); // Sleeps seconds
     pthread_exit(random_number);
 }
@@ -76,7 +76,8 @@ typedef struct __node_t { 
 
 // basic list structure (one used per list)
 typedef struct __list_t {
-       node_t *head;
+    node_t *head;
+    pthread_mutex_t lock; // <- correção de problema
 } list_t;
 
 void List_Init(list_t *L) {
