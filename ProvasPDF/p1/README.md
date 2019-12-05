@@ -68,7 +68,6 @@ int gateway (int nthreads, int wait_nthreads) {
 
 ## 3
 ```C
-// DUVIDA
 // basic node structure  
 typedef struct __node_t {  
     int key;  
