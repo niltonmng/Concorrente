@@ -923,15 +923,16 @@ O output deste programa foi:
     Consumidor retirou 9
     Consumidor terminando
 
+## Golang
 
-## Goroutines
+### Goroutines
 Uma goroutine é um segmento leve e gerenciado pelo runtime de Go.
 ```
 go f(x, y, z)
 ```
 Goroutines executam no mesmo espaço de endereço, para que o acesso à memória compartilhada seja sincronizada. O pacote **sync** fornece as primitivas úteis.
 
-## Canais:
+### Canais:
 Canais são um conduto tipado através do qual você pode enviar e receber valores com o operador de canal, **<-**.
   Em Go, o canal armazena os valores de entrada, a exemplo abaixo:
 ```
@@ -956,3 +957,61 @@ Os canais podem ser bufferizados. Fornecendo o tamanho do buffer como o segundo 
 ch := make(chan int, 100)
 ```
 Envia para um bloco de canais bufferizados apenas quando o buffer está cheio. Recebe bloco quando o buffer está vazio.
+
+### sync.Mutex
+
+Temos visto como os canais são bons para a comunicação entre goroutines.
+
+Mas e se nós não precisássemos de comunicação? E se nós apenas quiséssemos ter certeza que uma única goroutine pode acessar uma variável de cada vez para evitar conflitos?
+
+Este conceito é chamado exclusão mútua, e o nome convencional para a estrutura de dados que a fornece é mutex.
+
+A biblioteca padrão do Go que fornece exclusão mútua com sync.Mutex e seus dois métodos:
+
+```
+lock
+unlock
+```
+
+Um exemplo de código abaixo:
+```
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+// SafeCounter is safe to use concurrently.
+type SafeCounter struct {
+	v   map[string]int
+	mux sync.Mutex
+}
+
+// Inc increments the counter for the given key.
+func (c *SafeCounter) Inc(key string) {
+	c.mux.Lock()
+	// Lock so only one goroutine at a time can access the map c.v.
+	c.v[key]++
+	c.mux.Unlock()
+}
+
+// Value returns the current value of the counter for the given key.
+func (c *SafeCounter) Value(key string) int {
+	c.mux.Lock()
+	// Lock so only one goroutine at a time can access the map c.v.
+	defer c.mux.Unlock()
+	return c.v[key]
+}
+
+func main() {
+	c := SafeCounter{v: make(map[string]int)}
+	for i := 0; i < 1000; i++ {
+		go c.Inc("somekey")
+	}
+
+	time.Sleep(time.Second)
+	fmt.Println(c.Value("somekey"))
+}
+```
