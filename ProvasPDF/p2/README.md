@@ -1,12 +1,39 @@
 # Respostas
 ## 1
 
-```
+```Java
+
 ```
 
 ## 2
 
-```
+```C
+typedef struct _shylock_t {
+    int count_threads;
+    int max_threads;
+    pthread_mutex_t s_lock;
+}
+
+void shylock_init (shylock_t *lock, int max_nthreads) {
+    lock-> max_threads = max_nthreads;
+    lock-> count_threads = 0;
+    pthread_mutex_init(&lock -> s_lock);
+}
+
+void shylock_acquire (shylock_t *lock) {
+    lock->count_threads++;
+    while(lock->count_threads >= lock->max_threads){
+        pthread_mutex_lock(&lock->s_lock);
+        if(!(lock.count_threads >= lock.max_threads)){
+            release(lock);
+        }
+    }
+}
+
+void shylock_release (shylock_t *lock) {
+    pthread_mutex_unlock(&lock->s_lock);
+    lock-> count_threads--;
+}
 ```
 
 ## 3
