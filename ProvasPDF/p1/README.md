@@ -49,18 +49,18 @@ void *request (void *args) {
 }
 
 int gateway (int nthreads, int wait_nthreads) {
+    int global[nthreads];
     pthread_t pthreads[nthreads];
     for (int i = 0; i < nthreads; i++) {
         pthread_create (&pthreads[i], NULL, &request, (void*) i);
     }
-    
-    pthread_cond_wait(pthread_cont_t *cv,pthread_mutex_t *mutex); // duvida
 
     int sum = 0;
     for (int i = 0; i < nthreads; i++) {
         void* aux;
-        pthread_join(pthreads[i], &aux);    
-        sum += (int) aux;
+        pthread_join(pthreads[i], &aux);
+        global[i] = (int) aux;    
+        //sum += (int) aux;
     }
     return sum;
 }

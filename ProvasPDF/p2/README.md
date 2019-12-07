@@ -37,7 +37,7 @@ typedef struct _shylock_t {
 
 void shylock_init (shylock_t *lock, int max_nthreads) {
     lock-> max_threads = max_nthreads;
-    lock-> count_threads = 0;
+    lock-> count_threads = -1;
     pthread_mutex_init(&lock -> s_lock, NULL);
 }
 
@@ -46,7 +46,7 @@ void shylock_acquire (shylock_t *lock) {
     while(lock.count_threads >= lock.max_threads){
         pthread_mutex_lock(&lock->s_lock);
         if(!(lock.count_threads >= lock.max_threads)){
-            release(lock);
+            shylock_release(lock);
         }
     }
 }
