@@ -30,15 +30,15 @@ class CyclicBarrier {
 
 ```C
 typedef struct _shylock_t {
-    int count_threads;
     int max_threads;
+    int count_threads;
     pthread_mutex_t s_lock;
-}
+} shylock_t;
 
 void shylock_init (shylock_t *lock, int max_nthreads) {
     lock-> max_threads = max_nthreads;
     lock-> count_threads = 0;
-    pthread_mutex_init(&lock -> s_lock);
+    pthread_mutex_init(&lock -> s_lock, NULL);
 }
 
 void shylock_acquire (shylock_t *lock) {
@@ -73,7 +73,7 @@ typedef struct __queue_t {
     pthread_mutex_t tailLock; // <- Correção feita
 } list_t;
 
-void Queue_Init(queue_t *Q) {
+void Queue_Init(queue_t *q) {
     note_t *tmp = malloc(sizeof(node_t));
     tmp->next = NULL;
     q->head = q->tail = tmp;
@@ -87,14 +87,14 @@ void Queue_Enqueue(queue_t *q, int value) {
     tmp->value = value;
     tmp->next = NULL;
 
-    Pthread_mutex_lock(&q->tailLock); // <- Correção feita
+    pthread_mutex_lock(&q->tailLock); // <- Correção feita
     q->tail->next = tmp;
     q->tail = tmp;
     Pthread_mutex_unlock(&q->tailLock); // <- Correção feita
 }
 
 int Queue_Dequeue(queue_t *q, int *value) {
-    Pthread_mutex_lock(&q->headLock); // <- Correção feita
+    pthread_mutex_lock(&q->headLock); // <- Correção feita
     node_t *tmp = q->head;
     node_t *new_head = tmp->next;
     if (new_head == NULL) {
@@ -103,7 +103,7 @@ int Queue_Dequeue(queue_t *q, int *value) {
     }
     *value = new_head->value;
     q->head = new_head;
-    Pthread_mutex_unlock(&q->headLock); // <- Correção feita
+    pthread_mutex_unlock(&q->headLock); // <- Correção feita
     
     free(tmp);
     return 0;
