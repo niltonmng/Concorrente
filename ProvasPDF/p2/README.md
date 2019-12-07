@@ -2,6 +2,27 @@
 ## 1
 
 ```Java
+class CyclicBarrier {
+    int numThreads;
+    int count;
+
+    public CyclicBarrier (int numThreads) {
+        this.numThreads = numThreads;
+        this.count = numThreads;
+    }
+
+    public synchronized void await () {
+        this.count--;
+
+        if(this.count > 0){
+            this.wait();
+        }
+        else {
+            this.count  = numThreads;
+            notifyAll();
+        }
+    }
+}
 
 ```
 
