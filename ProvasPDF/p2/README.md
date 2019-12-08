@@ -45,14 +45,18 @@ void shylock_acquire (shylock_t *lock) {
     if(lock.count_threads >= lock.max_threads){
         pthread_mutex_lock(&lock->s_lock);
     }
-    lock->count_threads++;
+    else {
+        lock->count_threads++;
+    }
 }
 
 void shylock_release (shylock_t *lock) {
     if(!(lock.count_threads >= lock.max_threads)){
         pthread_mutex_unlock(&lock->s_lock);     
     }
-    lock-> count_threads--;
+    else {
+        lock-> count_threads--;
+    }
 }
 ```
 
