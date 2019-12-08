@@ -974,7 +974,7 @@ unlock
 ```
 
 Um exemplo de código abaixo:
-```
+```Go
 package main
 
 import (
