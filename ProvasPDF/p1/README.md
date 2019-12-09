@@ -104,6 +104,7 @@ int List_Lookup(list_t*L, int key) {
     node_t*curr = L->head;
     while (curr) {
         if (curr->key == key){
+            pthread_mutex_unlock(&L->lock); // <- correção de problema
             return 0; // success
         }
         curr =curr->next;
